@@ -1,5 +1,5 @@
 
-baseplate_length=78;
+baseplate_length=79;
 baseplate_width=47;
 baseplate_height=1.5;
 
@@ -23,6 +23,16 @@ module create_side_boarder(){
     circle(r = boarder_radius, $fn = 100); 
 }
 
+
+module stability_rounding(lenght, rounding_radius){
+    linear_extrude(lenght,center=false,convexity = 10)
+    difference()
+    {
+        square(rounding_radius);
+        circle(r = rounding_radius, $fn = 100); 
+    }
+}
+
 module create_arm(arm_height, arm_width, arm_thinkness, finger_radius){
 
     // create arm 
@@ -34,20 +44,33 @@ module create_arm(arm_height, arm_width, arm_thinkness, finger_radius){
     linear_extrude(arm_width,center=false,convexity = 10)
     circle(r = finger_radius, $fn = 100); 
     
+    
     // add rounding to arm bottom for more stability
     rounding_radius=arm_thinkness;
+    
+    // add rounding to the front 
     translate([0, -arm_thinkness, rounding_radius])
     rotate([0,90,0])
-    linear_extrude(arm_width,center=false,convexity = 10)
-    difference()
-    {
-        square(rounding_radius);
-        circle(r = rounding_radius, $fn = 100); 
-    }
+    stability_rounding(arm_width, rounding_radius);
+    
+    // add rounding to the left side
+    translate([-rounding_radius,arm_thinkness,rounding_radius])
+    rotate([90,90,0])
+    stability_rounding(arm_thinkness, rounding_radius);
+    
+    // add rounding to the right side
+    translate([rounding_radius+arm_width,arm_thinkness,rounding_radius])
+    rotate([90,180,0])
+    stability_rounding(arm_thinkness, rounding_radius);
+    
 }
 
+
+
+
+
 module create_front_arm(){
-    arm_thinkness=1.5;
+    arm_thinkness=2;
     arm_height=10;
     arm_width=20;
     finger_radius=1;
@@ -61,7 +84,7 @@ module create_front_arm(){
 }
 
 module create_back_arm(){
-    arm_thinkness=1.5;
+    arm_thinkness=2;
     arm_height=5;
     arm_width=8;
     finger_radius=1;
