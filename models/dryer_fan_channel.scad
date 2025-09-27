@@ -1,15 +1,15 @@
 
-fan_d = 120;
+fan_d = 123;
 fan_r = fan_d / 2;
 
-big_channel_d = 95;
+big_channel_d = 90;
 big_channel_r = big_channel_d / 2;
 big_center_gnd_offset = 115;
 
-small_channel_d = 70;
+small_channel_d = 72;
 small_channel_r = small_channel_d / 2;
 small_center_gnd_offset = 55;
-small_channel_side_offset = 37/2;
+small_channel_side_offset = 35/2;
 
 height_channel = 50;
 height_cylinder = 45;
@@ -93,13 +93,14 @@ module create_wall_mount_screw_holes(mount_h, mount_r){
     screw_hole_r = 3;
     
     // pythagoras hypotenuse hole every 120°
-    xy_hypotenuse = mount_middle_r * sqrt(0.5);
+    // this was not working, as the screw holes were covered by channel
+    //xy_hypotenuse = mount_middle_r * sqrt(0.5);
 
     v_hole_0 = [0, mount_middle_r, -meld_offset/2];
-    v_hole_120 = [xy_hypotenuse, -xy_hypotenuse, -meld_offset/2];
-    v_hole_240 = [-xy_hypotenuse, -xy_hypotenuse, -meld_offset/2];
+    v_hole_90 = [mount_middle_r, 0, -meld_offset/2];
+    v_hole_270 = [-mount_middle_r, 0, -meld_offset/2];
     
-    for(vec=[v_hole_0, v_hole_120, v_hole_240])
+    for(vec=[v_hole_0, v_hole_90, v_hole_270])
         translate(vec)
         cylinder(
             h = mount_h + meld_offset, 
@@ -111,7 +112,7 @@ module create_wall_mount_screw_holes(mount_h, mount_r){
     
      // create screw sink
     screw_hole_sink_h = 1.5;
-    for(vec=[v_hole_0, v_hole_120, v_hole_240])
+    for(vec=[v_hole_0, v_hole_90, v_hole_270])
         translate(vec + [0,0,mount_h - screw_hole_sink_h])
         cylinder(
             h = screw_hole_sink_h + meld_offset, 

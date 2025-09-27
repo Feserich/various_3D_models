@@ -1,6 +1,6 @@
 // create the bottom plate 
 bottom_height = 2;
-bottom_radius = 15.2;
+bottom_radius = 15.7;
 
 cylinder(h = bottom_height, r1 = bottom_radius, r2 = bottom_radius, center = true, $fn = 100);
     
@@ -21,8 +21,8 @@ difference()
 
 // create the three hold arms
 arm_height=11.5;
-arm_thickness=1.5;
-arm_gap = 17;
+arm_thickness=2;
+arm_gap = 15;
 
 module create_arm_ring(){
     
@@ -46,7 +46,7 @@ module create_arm_ring(){
     // add rounding to arm bottom for more stability 
         difference()
     {
-        rounding_r=1.5;
+        rounding_r=2;
         rotate_extrude(convexity = 10, $fn = 100)
         translate([bottom_radius-arm_thickness, bottom_height/2, 0])
         circle(r = rounding_r, $fn = 100); // use a half circle instead
