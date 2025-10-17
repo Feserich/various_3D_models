@@ -5,24 +5,37 @@ bottom_radius = 15.7;
 cylinder(h = bottom_height, r1 = bottom_radius, r2 = bottom_radius, center = true, $fn = 100);
     
     
+ create_push_button();
+ 
 // create the padding for the bush button 
-difference()
-{
+module create_push_button() {
     button_padding_h=3;
-    button_padding_r=10.5;
+    button_padding_r=10.8;
     button_padding_thickness=1.5;
     
-   translate([0,0,bottom_height/2]) 
-   cylinder(h = button_padding_h, r1 = button_padding_r+button_padding_thickness, r2 = button_padding_r + button_padding_thickness, center = false, $fn = 100);
+    upper_circle_r=bottom_height/4;
+    upper_ring_h=bottom_height*2 - upper_circle_r;
+    upper_ring_r=button_padding_r+button_padding_thickness;
+
     
-    translate([0,0,bottom_height/2]) 
-   cylinder(h = button_padding_h + 0.01, r1 = button_padding_r , r2 = button_padding_r , center = false, $fn = 100);
+    rotate_extrude($fn = 100)
+    translate([upper_ring_r , upper_ring_h,0])
+    circle(r=upper_circle_r, $fn = 100); 
+    
+    difference()
+    {
+       translate([0,0,bottom_height/2]) 
+       cylinder(h = button_padding_h, r1 = button_padding_r+button_padding_thickness, r2 = button_padding_r + button_padding_thickness, center = false, $fn = 100);
+        
+        translate([0,0,bottom_height/2]) 
+       cylinder(h = button_padding_h + 0.01, r1 = button_padding_r , r2 = button_padding_r , center = false, $fn = 100);
+    }
 }
 
 // create the three hold arms
 arm_height=11.5;
 arm_thickness=2;
-arm_gap = 15;
+arm_gap = 16;
 
 module create_arm_ring(){
     
