@@ -36,4 +36,10 @@ suck in the exhaust air within the cabinet (air loop). The cabinet is
 used to hide the dryer and reduce the noise.
 ![alt text](./models/preview/dryer_fan_channel.png)
 
+## DF54 Portafilter Holder
+This model is a portafilter holder for the DF54 coffee grinder.
+It is screwed to the round grinder body and holds the portafilter
+with a bayonet below the grinder outlet while grinding.
+![alt text](./models/preview/df54_portafilter_holder.png)
+
 
